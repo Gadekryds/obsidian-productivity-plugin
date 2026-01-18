@@ -1,6 +1,6 @@
-import { App, Modal, Setting, TFile } from "obsidian";
-import { createSearchElement } from "../../Utils/Components/Search/SearchElement";
-import { IsEmpty } from "../../Utils/Helpers";
+import {App, Modal, Setting, TFile} from "obsidian";
+import {createSearchElement} from "../../Utils/Components/Search/SearchElement";
+import {IsEmpty} from "../../Utils/Helpers";
 
 export class UpdateTaskModel {
 	file: TFile;
@@ -16,26 +16,26 @@ export class UpdateTaskModal extends Modal {
 		this.onSubmit = onSubmit;
 
 		const files = this.app.vault.getMarkdownFiles();
-		console.log(files);
+		console.debug(files);
 		this.statusFiles = files.filter((file) => {
 			const cache = this.app.metadataCache.getFileCache(file);
 			return cache?.frontmatter?.kind === 'Task' && cache?.frontmatter?.status !== 'Done';
 		})
-		console.log(this.statusFiles);
+		console.debug(this.statusFiles);
 	}
 
 	statusFiles: TFile[];
 	onSubmit: (task: UpdateTaskModel) => void;
 
 	onClose() {
-		const { contentEl } = this;
+		const {contentEl} = this;
 		contentEl.empty();
 	}
 
 	onOpen() {
 		let searchResults: TFile[];
 
-		this.contentEl.createEl("h1", { text: "Update Task" });
+		this.contentEl.createEl("h1", {text: "Update task"});
 
 
 		new Setting(this.contentEl)
@@ -50,6 +50,7 @@ export class UpdateTaskModal extends Modal {
 
 		this.displayElements(this.statusFiles, '');
 	}
+
 	searchByStatus(value: string) {
 		return IsEmpty(value) ? this.statusFiles :
 			this.statusFiles.filter((file) =>
@@ -57,8 +58,7 @@ export class UpdateTaskModal extends Modal {
 	}
 
 	displayElements(searchResults: TFile[], value: string) {
-		const resultsDiv = (this.contentEl.querySelector(".status-results")
-			?? this.contentEl.createDiv("status-results")) as HTMLElement;
+		const resultsDiv = this.contentEl.createDiv("status-results")//) as HTMLElement; (this.contentEl.querySelector(".status-results") ??
 		resultsDiv?.empty();
 		searchResults?.slice(0, 5).forEach((file) => {
 

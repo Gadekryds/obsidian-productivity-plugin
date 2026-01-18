@@ -17,14 +17,14 @@ export function addCreateDocumentationCommand(plugin: ProductivityPlugin) {
         id: "create-learning-doc",
         name: "Create learning documentation",
         callback: () => {
-            new CreateLearningDocumentModal(this.app, async (doc: CreateLearningDocModel) => {
-                await createLearningDocument(doc);
+            new CreateLearningDocumentModal(plugin.app, (doc: CreateLearningDocModel) => {
+                createLearningDocument(doc);
             }).open();
         }
     })
 }
 
-async function createLearningDocument(doc: CreateLearningDocModel) {
+function createLearningDocument(doc: CreateLearningDocModel) {
 
     // 
 

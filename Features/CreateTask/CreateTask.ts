@@ -48,6 +48,7 @@ const FailureNotice = () => {
 const SuccessNotice = (task: TaskModel) => {
 	const fragment = document.createDocumentFragment();
 	const ul = document.createElement("ul");
+	// eslint-disable-next-line obsidianmd/no-static-styles-assignment
 	ul.style.listStyle = "none";
 
 	["Task Name: " + task.taskName,

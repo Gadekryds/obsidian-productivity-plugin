@@ -5,7 +5,7 @@ export function createSearchElement(
     file: TFile,
     onClick: (file: TFile) => void
 ): HTMLElement {
-    const searchElement = container.createDiv("searchelement");
+    const searchElement = container.createDiv("search-element");
     searchElement.addClass("clickable-item");
 
     // Make element keyboard accessible

@@ -6,7 +6,7 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
-.searchelement {
+.search-element {
 	display: flex;
 	flex-direction: column;
 	gap: 4px;
@@ -21,13 +21,13 @@ If your plugin does not need CSS, delete this file.
 	cursor: pointer;
 }
 
-.searchelement:hover {
+.search-element:hover {
 	background-color: var(--background-modifier-hover);
 	border-color: var(--background-modifier-border-hover, var(--background-modifier-border));
 }
 
-.searchelement:focus,
-.searchelement:focus-visible {
+.search-element:focus,
+.search-element:focus-visible {
 	background-color: var(--background-modifier-hover);
 	border-color: var(--interactive-accent);
 	outline: 2px solid var(--interactive-accent);
