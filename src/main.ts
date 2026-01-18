@@ -1,10 +1,10 @@
 import { Plugin } from 'obsidian';
-import { ProductivityPluginSetting, ProductivityPluginSettingsTab, DEFAULT_SETTINGS } from 'ProductivityPluginSettingsTab';
-import { getProjects } from 'Utils/Helpers';
-import { addCreateTaskCommand } from 'Features/CreateTask/CreateTaskCommand';
-import { addUpdateStatusCommand, addUpdateTaskCommand } from 'Features/UpdateTask/UpdateTask';
-import { addCreateProjectCommand } from 'Features/CreateProject/CreateProject';
-import { addCreateDocumentationCommand } from 'Features/CreateLearning/CreateLearning';
+import { ProductivityPluginSetting, ProductivityPluginSettingsTab, DEFAULT_SETTINGS } from '../ProductivityPluginSettingsTab';
+import { getProjects } from '../Utils/Helpers';
+import { addCreateTaskCommand } from '../Features/CreateTask/CreateTaskCommand';
+import { addUpdateStatusCommand, addUpdateTaskCommand } from '../Features/UpdateTask/UpdateTask';
+import { addCreateProjectCommand } from '../Features/CreateProject/CreateProject';
+import { addCreateDocumentationCommand } from '../Features/CreateLearning/CreateLearning';
 
 
 export default class ProductivityPlugin extends Plugin {

@@ -1,5 +1,5 @@
 import {Modal, App, Setting} from 'obsidian';
-import {FileExists, IsEmpty} from 'Utils/Helpers';
+import {FileExists, IsEmpty} from '../../Utils/Helpers';
 
 const taskNameValue = "Task name";
 
@@ -33,7 +33,7 @@ export class CreateTaskModal extends Modal {
 		let project = this.projects[0];
 		let due = "";
 
-		this.contentEl.createEl("h1", {text: "Create Task"});
+		this.contentEl.createEl("h1", {text: "Create task"});
 
 		const taskNameSetting = new Setting(this.contentEl)
 			.setName(taskNameValue)
@@ -54,7 +54,7 @@ export class CreateTaskModal extends Modal {
 		if (activeFile) {
 			const cache = this.app.metadataCache.getFileCache(activeFile);
 			if (cache?.frontmatter && cache.frontmatter["project"]) {
-				project = cache.frontmatter["project"];
+				project = (cache.frontmatter["project"] as string);
 				showProjects = false;
 			}
 		}
@@ -89,14 +89,14 @@ export class CreateTaskModal extends Modal {
 				SetErrorMessage(taskNameSetting, "Task name is required.");
 				return;
 			}
-			if (FileExists(this.app, project, taskName, this.fallbackPath)) {
+			if (FileExists(this.app, project!, taskName, this.fallbackPath)) {
 				SetErrorMessage(taskNameSetting, "File already exists.");
 				return;
 			}
 
 			evt.preventDefault();
 			this.close();
-			this.onSubmit(new TaskModel(taskName, project, due));
+			this.onSubmit(new TaskModel(taskName, project!, due));
 		}
 
 		new Setting(this.contentEl)

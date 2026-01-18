@@ -1,6 +1,6 @@
 import { App, Modal, Setting, TFile } from "obsidian";
-import { createSearchElement } from "Utils/Components/Search/SearchElement";
-import { IsEmpty } from "Utils/Helpers";
+import { createSearchElement } from "../../Utils/Components/Search/SearchElement";
+import { IsEmpty } from "../../Utils/Helpers";
 
 export class UpdateTaskModel {
 	file: TFile;

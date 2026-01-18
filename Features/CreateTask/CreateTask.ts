@@ -1,7 +1,7 @@
-import { TaskModel } from "Features/CreateTask/CreateTaskModal";
+import { TaskModel } from "./CreateTaskModal";
 import { Notice, moment, App, TFile } from "obsidian";
 import ProductivityPlugin from "main";
-import { FileExists, GenerateFilePath, IsEmpty, NormalizedPath } from "Utils/Helpers";
+import { FileExists, GenerateFilePath, IsEmpty, NormalizedPath } from "../../Utils/Helpers";
 
 export async function createTaskFile(plugin: ProductivityPlugin, task: TaskModel) {
 	const fallbackPath = NormalizedPath(plugin.settings.fallbackTaskLocation);
