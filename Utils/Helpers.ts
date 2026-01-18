@@ -29,7 +29,7 @@ export const FileExists = (app: App, project: string, fileName: string, fallback
     return app.vault.getAbstractFileByPath(path) !== null;
 }
 
-export const GenerateFilePath = (app: App, fileName: string, project: string, fallbackPath: string, useTimestamp: boolean = false): string => {
+export const GenerateFilePath = (app: App, fileName: string, project: string, fallbackPath: string, useTimestamp = false): string => {
 
     const location = BuildBasePath(fallbackPath, project);
     let file = `${location}/${fileName}.md`;
