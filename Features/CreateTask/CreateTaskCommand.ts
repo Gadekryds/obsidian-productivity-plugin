@@ -5,7 +5,7 @@ import { CreateTaskModal, TaskModel } from "./CreateTaskModal";
 export function addCreateTaskCommand(plugin: ProductivityPlugin, projects: Set<string>) {
     plugin.addCommand({
         id: 'create-task',
-        name: 'Create Task',
+        name: 'Create task',
         callback: () => {
             new CreateTaskModal(plugin.app, projects, plugin.settings.fallbackTaskLocation, async (task: TaskModel) => {
                 await createTaskFile(plugin, task);

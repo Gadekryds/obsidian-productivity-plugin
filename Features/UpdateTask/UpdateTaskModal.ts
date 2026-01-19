@@ -11,7 +11,7 @@ export class UpdateTaskModel {
 }
 
 export class UpdateTaskModal extends Modal {
-	constructor(app: App, onSubmit: (task: UpdateTaskModel) => void) {
+	constructor(app: App, onSubmit: (task: UpdateTaskModel) => Promise<void>) {
 		super(app);
 		this.onSubmit = onSubmit;
 
@@ -25,7 +25,7 @@ export class UpdateTaskModal extends Modal {
 	}
 
 	statusFiles: TFile[];
-	onSubmit: (task: UpdateTaskModel) => void;
+	onSubmit: (task: UpdateTaskModel) => Promise<void>;
 
 	onClose() {
 		const {contentEl} = this;
@@ -63,7 +63,7 @@ export class UpdateTaskModal extends Modal {
 		searchResults?.slice(0, 5).forEach((file) => {
 
 			createSearchElement(resultsDiv, file, (selectedFile) => {
-				this.onSubmit(new UpdateTaskModel(selectedFile));
+				this.onSubmit(new UpdateTaskModel(selectedFile)).catch((err) => console.error(err));
 				this.close();
 			})
 		})

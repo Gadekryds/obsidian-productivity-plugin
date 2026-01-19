@@ -16,7 +16,7 @@ export class TaskModel {
 }
 
 export class CreateTaskModal extends Modal {
-	constructor(app: App, projects: Set<string>, fallbackPath: string, onSubmit: (task: TaskModel) => void) {
+	constructor(app: App, projects: Set<string>, fallbackPath: string, onSubmit: (task: TaskModel) => Promise<void>) {
 		super(app);
 		this.onSubmit = onSubmit;
 		const list = Array.from(projects).filter(x => !IsEmpty(x));
@@ -26,7 +26,7 @@ export class CreateTaskModal extends Modal {
 
 	fallbackPath: string;
 	projects: string[];
-	onSubmit: (task: TaskModel) => void;
+	onSubmit: (task: TaskModel) => Promise<void>;
 
 	onOpen() {
 		let taskName = "";
@@ -96,7 +96,9 @@ export class CreateTaskModal extends Modal {
 
 			evt.preventDefault();
 			this.close();
-			this.onSubmit(new TaskModel(taskName, project!, due));
+			this.onSubmit(new TaskModel(taskName, project!, due)).catch((err) => {
+				console.error(err)
+			});
 		}
 
 		new Setting(this.contentEl)

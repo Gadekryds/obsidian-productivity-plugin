@@ -1,4 +1,4 @@
-import {Notice, View} from "obsidian";
+import {App, Notice, View} from "obsidian";
 import {UpdateTaskModal, UpdateTaskModel} from "./UpdateTaskModal";
 import ProductivityPlugin from "main";
 import {Status, STATUS_LIST} from '../../Utils/Status';
@@ -17,25 +17,25 @@ const GetPreviousStatus = (status: Status) => {
 export function addUpdateTaskCommand(plugin: ProductivityPlugin) {
 	plugin.addCommand({
 		id: 'update-task',
-		name: "Update Task",
+		name: "Update task",
 		callback: () => {
 			new UpdateTaskModal(plugin.app, async (task: UpdateTaskModel) => {
-				await updateTask(task);
+				await updateTask(plugin.app, task);
 			}).open();
 		}
 	})
 }
 
-export async function updateTask(task: UpdateTaskModel) {
-	await this.app.fileManager.processFrontMatter(task.file, (frontmatter: { [x: string]: string; }) => {
-		frontmatter["status"] = GetNextStatus(frontmatter["status"]);
+export async function updateTask(app: App, task: UpdateTaskModel) {
+	await app.fileManager.processFrontMatter(task.file, (frontmatter: { [x: string]: string; }) => {
+		frontmatter["status"] = GetNextStatus(frontmatter["status"] as Status)!;
 	});
 }
 
 export function addUpdateStatusCommand(plugin: ProductivityPlugin) {
 	plugin.addCommand({
 		id: "update-task-status",
-		name: "Update Task Status",
+		name: "Update task status",
 		callback: () => {
 			const leaf = plugin.app.workspace.getActiveViewOfType(View);
 			const root = leaf?.containerEl;
@@ -48,7 +48,7 @@ export function addUpdateStatusCommand(plugin: ProductivityPlugin) {
 
 	plugin.addCommand({
 		id: "update-task-status-reverse",
-		name: "Update Task Status Reverse",
+		name: "Update task status reverse",
 		callback: () => {
 			const leaf = plugin.app.workspace.getActiveViewOfType(View);
 			const root = leaf?.containerEl;
@@ -61,7 +61,7 @@ export function addUpdateStatusCommand(plugin: ProductivityPlugin) {
 }
 
 function updateSelectedRowStatus(root: HTMLElement, direction: Direction) {
-	const basesRoot = (root.querySelector('.bases-view') as HTMLElement | null) ?? root;
+	const basesRoot = (root.querySelector('.bases-view') as HTMLElement) ?? root;
 	let focused: HTMLElement | null = null;
 	const focusedInBases = basesRoot.querySelector(':focus');
 	if (focusedInBases instanceof HTMLElement) {

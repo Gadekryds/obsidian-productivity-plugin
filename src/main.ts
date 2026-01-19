@@ -14,7 +14,7 @@ export default class ProductivityPlugin extends Plugin {
 	async onload() {
 		await this.loadSettings();
 
-		this.projects = getProjects();
+		this.projects = getProjects(this.app);
 		addCreateTaskCommand(this, this.projects);
 		addUpdateTaskCommand(this);
 		addCreateDocumentationCommand(this);
