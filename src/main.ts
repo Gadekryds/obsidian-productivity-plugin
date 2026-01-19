@@ -1,5 +1,5 @@
 import { Plugin } from 'obsidian';
-import { ProductivityPluginSetting, ProductivityPluginSettingsTab, DEFAULT_SETTINGS } from '../ProductivityPluginSettingsTab';
+import { ProductivityPluginSetting, ProductivityPluginSettingsTab, DEFAULT_SETTINGS } from './ProductivityPluginSettingsTab';
 import { getProjects } from '../Utils/Helpers';
 import { addCreateTaskCommand } from '../Features/CreateTask/CreateTaskCommand';
 import { addUpdateStatusCommand, addUpdateTaskCommand } from '../Features/UpdateTask/UpdateTask';

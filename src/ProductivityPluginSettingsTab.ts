@@ -24,7 +24,7 @@ export class ProductivityPluginSettingsTab extends PluginSettingTab {
 		containerEl.empty();
 
 		new Setting(containerEl)
-			.setName("Fallback Task Location")
+			.setName("Fallback task location")
 			.setDesc("Where to save tasks if not other rules apply")
 			.addText(text =>
 				text.setValue(this.plugin.settings.fallbackTaskLocation)
