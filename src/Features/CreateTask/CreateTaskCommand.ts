@@ -8,7 +8,7 @@ export function addCreateTaskCommand(tasks: Tasks, projects: Set<string>): Produ
 			id: 'create-task',
 			name: 'Create task',
 			callback: () => {
-				new CreateTaskModal(tasks.plugin.app, projects, tasks.fallbackTasksPath, async (task: TaskModel) => {
+				new CreateTaskModal(tasks.plugin.app, tasks.projectPath, projects, tasks.fallbackTasksPath, async (task: TaskModel) => {
 					await tasks.createTaskFile(task);
 				}).open();
 			}

@@ -16,14 +16,16 @@ export class TaskModel {
 }
 
 export class CreateTaskModal extends Modal {
-	constructor(app: App, projects: Set<string>, fallbackPath: string, onSubmit: (task: TaskModel) => Promise<void>) {
+	constructor(app: App, projectPath: string, projects: Set<string>, fallbackPath: string, onSubmit: (task: TaskModel) => Promise<void>) {
 		super(app);
 		this.onSubmit = onSubmit;
 		const list = Array.from(projects).filter(x => !IsEmpty(x));
 		this.projects = ["", ...list];
+		this.projectPath = projectPath;
 		this.fallbackPath = fallbackPath;
 	}
 
+	projectPath: string;
 	fallbackPath: string;
 	projects: string[];
 	onSubmit: (task: TaskModel) => Promise<void>;
@@ -89,7 +91,7 @@ export class CreateTaskModal extends Modal {
 				SetErrorMessage(taskNameSetting, "Task name is required.");
 				return;
 			}
-			if (FileExists(this.app, project!, taskName, this.fallbackPath)) {
+			if (FileExists(this.app, this.projectPath,  project!, taskName, this.fallbackPath)) {
 				SetErrorMessage(taskNameSetting, "File already exists.");
 				return;
 			}

@@ -62,9 +62,9 @@ export class ProductivityPluginSettingsTab extends PluginSettingTab {
 			.setName("Drawing template path")
 			.setDesc("Fill this field, if you want to use a drawing template")
 			.addText(text =>
-				text.setValue(this.plugin.settings.templatePath)
+				text.setValue(this.plugin.settings.dashboardTemplate)
 					.onChange(async (value) => {
-						this.plugin.settings.templatePath = value;
+						this.plugin.settings.dashboardTemplate = value;
 						await this.plugin.saveSettings();
 					})
 			)
