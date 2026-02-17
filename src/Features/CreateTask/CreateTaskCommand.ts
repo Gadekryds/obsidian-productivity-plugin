@@ -1,15 +1,18 @@
-import ProductivityPlugin from "main";
-import { createTaskFile } from "./CreateTask";
-import { CreateTaskModal, TaskModel } from "./CreateTaskModal";
+import {CreateTaskModal, TaskModel} from "./CreateTaskModal";
+import {ProductivityCommand} from "ProductivityTypes";
+import {Tasks} from "./Tasks";
 
-export function addCreateTaskCommand(plugin: ProductivityPlugin, projects: Set<string>) {
-    plugin.addCommand({
-        id: 'create-task',
-        name: 'Create task',
-        callback: () => {
-            new CreateTaskModal(plugin.app, projects, plugin.settings.fallbackTaskLocation, async (task: TaskModel) => {
-                await createTaskFile(plugin, task);
-            }).open();
-        }
-    });
+export function addCreateTaskCommand(tasks: Tasks, projects: Set<string>): ProductivityCommand {
+	return {
+		command: {
+			id: 'create-task',
+			name: 'Create task',
+			callback: () => {
+				new CreateTaskModal(tasks.plugin.app, projects, tasks.fallbackTasksPath, async (task: TaskModel) => {
+					await tasks.createTaskFile(task);
+				}).open();
+			}
+		},
+		hotkey: "Alt+T"
+	}
 }

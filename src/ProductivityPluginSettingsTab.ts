@@ -1,27 +1,40 @@
-import MyPlugin from 'main';
-import { PluginSettingTab, App, Setting } from 'obsidian';
-
-export interface ProductivityPluginSetting {
-	fallbackTaskLocation: string;
-}
-
-export const DEFAULT_SETTINGS: ProductivityPluginSetting = {
-	fallbackTaskLocation: '/tasks'
-}
-
+import ProductivityPlugin from "main";
+import { ProductivityPluginSetting } from './ProductivityPluginSetting';
+import {PluginSettingTab, Setting} from 'obsidian';
 
 export class ProductivityPluginSettingsTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: ProductivityPlugin;
 
-	constructor(app: App, plugin: MyPlugin) {
-		super(app, plugin);
+	constructor(plugin: ProductivityPlugin) {
+		super(plugin.app, plugin);
 		this.plugin = plugin;
 	}
 
 	display(): void {
-		const { containerEl } = this;
+		const {containerEl} = this;
 
 		containerEl.empty();
+
+		new Setting(containerEl)
+			.setName("Plugin root")
+			.setDesc("The root of the productivity plugin")
+			.addText(text =>
+				text.setValue(this.plugin.settings.root)
+					.onChange(async (value) => {
+						this.plugin.settings.root = value;
+						await this.plugin.saveSettings();
+					})
+			)
+		new Setting(containerEl)
+			.setName("Dashboard path")
+			.setDesc("Path to the dashboard page")
+			.addText(text =>
+				text.setValue(this.plugin.settings.dashboardPath)
+					.onChange(async (value) => {
+						this.plugin.settings.dashboardPath = value;
+						await this.plugin.saveSettings();
+					})
+			)
 
 		new Setting(containerEl)
 			.setName("Fallback task location")
@@ -30,6 +43,28 @@ export class ProductivityPluginSettingsTab extends PluginSettingTab {
 				text.setValue(this.plugin.settings.fallbackTaskLocation)
 					.onChange(async (value) => {
 						this.plugin.settings.fallbackTaskLocation = value;
+						await this.plugin.saveSettings();
+					})
+			)
+
+		new Setting(containerEl)
+			.setName("Set hotkeys")
+			.setDesc("Productivity comes with a set of default hotkeys. If enabled, it'll try to set these.")
+			.addToggle(toggle =>
+				toggle.setValue(this.plugin.settings.setHotkeys)
+					.onChange(async (value) => {
+						this.plugin.settings.setHotkeys = value;
+						await this.plugin.saveSettings();
+					})
+			)
+
+		new Setting(containerEl)
+			.setName("Drawing template path")
+			.setDesc("Fill this field, if you want to use a drawing template")
+			.addText(text =>
+				text.setValue(this.plugin.settings.templatePath)
+					.onChange(async (value) => {
+						this.plugin.settings.templatePath = value;
 						await this.plugin.saveSettings();
 					})
 			)

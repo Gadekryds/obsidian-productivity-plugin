@@ -6,7 +6,7 @@
 		"module": "ESNext",
 		"target": "ES6",
 		"allowJs": true,
-		"noImplicitAny": true,
+		"noImplicitAny": false,
 		"noImplicitThis": true,
 		"noImplicitReturns": true,
 		"moduleResolution": "node",
@@ -26,6 +26,7 @@
 	},
 	"include": [
 		"src/**/*.ts",
-		""
+		"src/*.ts",
+		"src/Resources/*.md"
 	]
 }
